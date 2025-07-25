@@ -24,10 +24,10 @@ public class Nodo1Service {
   
     /*Se crea el metodo solicitarFragmento pasando la clase Fragmento y 
     su atributo idFragmento donde se va a crear un objeto de la clase Solicitud
-    */
+   
    public Fragmento solicitarFragmento(String idFragmento) {
         Solicitud solicitud = new Solicitud("S001", "Nodo1", "Nodo2", idFragmento);
         return nodo2.procesarSolicitud(solicitud);
     }
-  
+   */
 }
