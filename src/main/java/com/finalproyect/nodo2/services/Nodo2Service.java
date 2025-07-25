@@ -4,10 +4,17 @@
  */
 package com.finalproyect.nodo2.services;
 
+import com.finalproyect.shared.models.Fragmento;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author antoniosalinas
  */
 public class Nodo2Service {
+    
+    
+    
     
 }
