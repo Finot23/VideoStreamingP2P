@@ -4,30 +4,42 @@
  */
 package com.finalproyect.nodo1.services;
 
-import com.finalproyect.nodo2.services.Nodo2Service;
+
 import com.finalproyect.shared.models.Fragmento;
-import com.finalproyect.shared.models.Solicitud;
+import com.finalproyect.shared.models.Nodo;
+import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author antoniosalinas
  */
+
+@Service
 public class Nodo1Service {
-    
-    // Se crea el objeto nodo 2 de la Clase Nodo2Service
-  private Nodo2Service nodo2;
-    
-  //Se genera el constructor de nodo2
-    public Nodo1Service(Nodo2Service nodo2) {
-        this.nodo2 = nodo2;
+
+    // Simulación de los datos del Nodo 1 en memoria
+    private final Nodo nodo1 = new Nodo(1, "Nodo1", new ArrayList<>());
+
+    public List<Fragmento> getFragmentos() {
+        return nodo1.getFragmentos();
     }
-  
-    /*Se crea el metodo solicitarFragmento pasando la clase Fragmento y 
-    su atributo idFragmento donde se va a crear un objeto de la clase Solicitud
-   
-   public Fragmento solicitarFragmento(String idFragmento) {
-        Solicitud solicitud = new Solicitud("S001", "Nodo1", "Nodo2", idFragmento);
-        return nodo2.procesarSolicitud(solicitud);
+
+    public void addFragmento(Fragmento fragmento) {
+        nodo1.getFragmentos().add(fragmento);
     }
-   */
+
+    // Método para simular la solicitud de un fragmento a otro nodo (ej. Nodo 2)
+    public Fragmento solicitarFragmentoANodo2(int fragmentoId) {
+        System.out.println("Nodo1 solicita el fragmento " + fragmentoId + " al Nodo2.");
+        // Aquí iría la lógica para llamar al servicio del Nodo2.
+        // Dado que es una aplicación monolítica, no necesitas una llamada HTTP.
+        // Podrías inyectar el servicio del Nodo2 y llamarlo directamente.
+        // Ejemplo:
+        // @Autowired
+        // private Nodo2Service nodo2Service;
+        // return nodo2Service.entregarFragmento(fragmentoId);
+        return null; // Por ahora, devolvemos null
+    }
 }

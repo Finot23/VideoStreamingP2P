@@ -4,7 +4,8 @@
  */
 package com.finalproyect.shared.models;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import java.util.List;
 
 /**
@@ -14,50 +15,12 @@ import java.util.List;
  * Podría tener un id, el nombre del nodo, y una lista de los 
  * fragmentos que posee.
  */
+
+
+@Data
+@AllArgsConstructor
 public class Nodo {
+    private int id;
+    private String nombre;
     private List<Fragmento> fragmentos;
-    
-    public Nodo(){
-        this.fragmentos = new ArrayList<>();
-    }
-    
-    int idNodo;
-    String nombreNodo;
-   
-     public void agregarFragmento(Fragmento fragmento) {
-        fragmentos.add(fragmento);
-    }
-
-    public List<Fragmento> getFragmentos() {
-        return fragmentos;
-    }
-
-    public Nodo(List<Fragmento> fragmentos, int idNodo, String nombreNodo) {
-        this.fragmentos = fragmentos;
-        this.idNodo = idNodo;
-        this.nombreNodo = nombreNodo;
-    }
-
-    public int getIdNodo() {
-        return idNodo;
-    }
-
-    public String getNombreNodo() {
-        return nombreNodo;
-    }
-
-    public void setFragmentos(List<Fragmento> fragmentos) {
-        this.fragmentos = fragmentos;
-    }
-
-    public void setIdNodo(int idNodo) {
-        this.idNodo = idNodo;
-    }
-
-    public void setNombreNodo(String nombreNodo) {
-        this.nombreNodo = nombreNodo;
-    }
-    
-    
-    
 }
