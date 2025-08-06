@@ -100,4 +100,7 @@ public class FragmentManagerService {
         nodeFragments.computeIfAbsent(nodeId, k -> new ArrayList<>()).add(fragmentId);
         System.out.println("Fragmento " + fragmentId + " añadido a " + nodeId);
     }
+    public Set<String> getAllFragmentIds() {
+    return allFragments.keySet();
+}
 }

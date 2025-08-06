@@ -21,19 +21,19 @@ import java.util.Set;
 @Service
 public class NodeService {
     private final FragmentManagerService fragmentManagerService;
-
+    private final EventPublisherService eventPublisherService;
+    
     // Almacenamos los nodos simulados en memoria.
     private final Node node1 = new Node();
     private final Node node2 = new Node();
     private final Node node3 = new Node();
 
-    public NodeService(FragmentManagerService fragmentManagerService) {
+    public NodeService(FragmentManagerService fragmentManagerService, EventPublisherService eventPublisherService) {
         this.fragmentManagerService = fragmentManagerService;
-        // En un escenario real, esto se haría en el @PostConstruct.
-        // Aquí lo hacemos para inicializar los nodos.
+        this.eventPublisherService = eventPublisherService;
         
         // Asignamos los fragmentos iniciales a cada nodo.
-        // La lógica de distribución ya está en FragmentManagerService.
+       
         this.node1.getFragmentIds().addAll(fragmentManagerService.getFragmentsByNode("node-1"));
         this.node2.getFragmentIds().addAll(fragmentManagerService.getFragmentsByNode("node-2"));
         this.node3.getFragmentIds().addAll(fragmentManagerService.getFragmentsByNode("node-3"));
@@ -61,22 +61,20 @@ public class NodeService {
     /**
      * Simula la solicitud de un fragmento a otro nodo.
      */
-    public Optional<Fragment> requestFragment(String sourceNodeId, String targetNodeId, String fragmentId) {
-        // Verificamos si el nodo destino realmente tiene el fragmento.
+     public Optional<Fragment> requestFragment(String sourceNodeId, String targetNodeId, String fragmentId) {
         Node targetNode = getNodeById(targetNodeId);
         if (targetNode != null && targetNode.hasFragment(fragmentId)) {
             System.out.println("Node " + sourceNodeId + " solicitando fragmento " + fragmentId + " a " + targetNodeId);
             
-            // Simula la "transferencia" del fragmento.
             Optional<Fragment> fragment = fragmentManagerService.getFragmentById(fragmentId);
             if (fragment.isPresent()) {
-                // Si la transferencia es exitosa, el nodo fuente lo añade a su colección.
                 Node sourceNode = getNodeById(sourceNodeId);
                 if (sourceNode != null) {
                     sourceNode.addFragment(fragmentId);
                     System.out.println("Node " + sourceNodeId + " ha recibido el fragmento " + fragmentId);
                     
-                    // TODO: Aquí se publicaría un evento Pub/Sub. Lo haremos en el siguiente paso.
+                    // Publicamos el evento de disponibilidad.
+                    eventPublisherService.publishFragmentAvailabilityEvent(fragmentId, sourceNodeId);
                 }
                 return fragment;
             }
